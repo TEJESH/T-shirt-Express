@@ -1,0 +1,28 @@
+<style>
+  .product-image { border:solid 1px #ccc; }
+  .product-title, .product-price, .product-shipping { font-weight:bold; }
+  .data-cell { padding:0px 50px 0px 10px;border:solid 0px #fff;vertical-align:top}
+  .align-cart { padding-left:480px }
+</style>
+
+<div id="googlecart-widget" class="align-cart"></div>
+<table>
+  <tr class="product">
+    <td><img class="product-image" 
+      src="/checkout/developer/files/google_tshirt.jpg"/>
+    </td>
+    <td class="data-cell">
+      <div class="product-title">Google T-Shirt</div>
+      <div class="product-price">Price: $12.99</div>
+      <div class="product-shipping">Shipping: $4.99</div><br/>
+      <div role="button" alt="Add to cart" tabindex="0" class="googlecart-add-button">
+      </div>
+    </td>
+  </tr>
+</table>
+
+<script id="googlecart-script" type="text/javascript"
+  src="http://checkout.google.com/seller/gsc/v2/cart.js?mid=801947958809860"
+  currency="USD"
+  post-cart-to-sandbox="true">
+</script>

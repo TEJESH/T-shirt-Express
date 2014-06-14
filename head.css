@@ -1,0 +1,12 @@
+body {
+columns: 2 auto;
+-moz-columns: 2 auto;
+-webkit-columns: 2 auto;
+column-gap: normal;
+-moz-column-gap: normal;
+-webkit-column-gap: normal;
+column-rule:  solid medium;
+-moz-column-rule:  solid medium;
+-webkit-column-rule:  solid medium;
+
+}

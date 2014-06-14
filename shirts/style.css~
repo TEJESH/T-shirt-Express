@@ -1,0 +1,12 @@
+#container1 {
+  width: 25%;
+  height: 300px;
+  position: absolute;
+  left: 913px;
+  bottom:  173px;
+font-family:"Times New Roman", Times, serif;
+font-size:25px;
+text-align:left;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}

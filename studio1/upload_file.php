@@ -1,0 +1,166 @@
+<script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
+<?php
+
+print date('F jS, Y');
+include_once($_SERVER['DOCUMENT_ROOT'].'/project/header.inc');
+?>
+
+
+
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="/project/noob/_web.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="/project/noob/style.css" type="text/css" media="screen" />
+	<script type="text/javascript" src="/project/noob/mootools-1.2-core.js"></script>
+	<script type="text/javascript" src="/project/noob/_class.noobSlide.packed.js"></script>
+<link rel="stylesheet" type="text/css" href="/project/css/style.css"/>
+<link rel="stylesheet" type="text/css" href="styles.css">
+  <!--link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=ABeeZee:400,400italic">
+  <!--script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  <script type="text/javascript" src="formslider.js"></script-->
+  
+  
+<style type="text/css" src="/project/css/style.css"> </style>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="noob/_web.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="noob/style.css" type="text/css" media="screen" />
+	<script type="text/javascript" src="noob/mootools-1.2-core.js"></script>
+	<script type="text/javascript" src="noob/_class.noobSlide.packed.js"></script>
+<link rel="stylesheet" type="text/css" href="/project/css/style.css"/>
+<link rel="stylesheet" type="text/css" href="/project/customer/account/login/styles.css"/>  
+<link rel="stylesheet" href="app.css">
+
+<?php
+include('SimpleImage.php');
+
+$allowedExts = array("gif", "jpeg", "jpg", "png");
+$temp = explode(".", $_FILES["file"]["name"]);
+$extension = end($temp);
+if ((($_FILES["file"]["type"] == "image/gif")
+|| ($_FILES["file"]["type"] == "image/jpeg")
+|| ($_FILES["file"]["type"] == "image/jpg")
+|| ($_FILES["file"]["type"] == "image/pjpeg")
+|| ($_FILES["file"]["type"] == "image/x-png")
+|| ($_FILES["file"]["type"] == "image/png"))
+&& ($_FILES["file"]["size"] < 200000)
+&& in_array($extension, $allowedExts))
+  {
+  if ($_FILES["file"]["error"] > 0)
+    {
+    echo "Return Code: " . $_FILES["file"]["error"] . "<br>";
+    }
+  else
+    {
+    echo "Upload: " . $_FILES["file"]["name"] . "<br>";
+    echo "Type: " . $_FILES["file"]["type"] . "<br>";
+    echo "Size: " . ($_FILES["file"]["size"] / 1024) . " kB<br>";
+    //echo "Temp file: " . $_FILES["file"]["tmp_name"] . "<br>";
+
+    if (file_exists("upload/" . $_FILES["file"]["name"]))
+      {
+      echo $_FILES["file"]["name"] . " already exists. ";
+      }
+    else
+      {
+      move_uploaded_file($_FILES["file"]["tmp_name"],
+      "upload/" . $_FILES["file"]["name"]);
+      echo "Stored in: " . "upload/" . $_FILES["file"]["name"];
+
+      }
+    }
+  }
+else
+  {
+  echo "Invalid file";
+  }
+
+
+
+merge('Mens-t-shirt.jpg', "upload/" . $_FILES["file"]["name"], 'images/merged.jpg');
+
+function merge($filename_x, $filename_y, $filename_result) {
+
+ // Get dimensions for specified images
+
+ list($width_x, $height_x) = getimagesize($filename_x);
+//list($width_y, $height_y) = getimagesize($filename_y);
+
+/////////$filename_y->resize(100,100);
+
+
+$image = new SimpleImage(); 
+$image->load($filename_y); 
+$image->resize(100,100);
+$image->save('images/picture2.jpg'); 
+//$image->resizeToHeight(200); 
+//$image->save('picture3.jpg'); 
+
+
+
+
+$width_y=100;
+$height_y=100;
+
+
+
+ // Create new image with desired dimensions
+
+ $image_n = imagecreatetruecolor($width_x, $height_x);
+
+ // Load images and then copy to destination image
+
+ $image_x = imagecreatefromjpeg($filename_x);
+ $image_y = imagecreatefromjpeg('images/picture2.jpg');
+
+ imagecopy($image_n, $image_x, 0, 0, 0, 0, $width_x, $height_x);
+                        //  top, left, border,border
+ imagecopy($image_n, $image_y, 100, 100, 0, 0, $width_y, $height_y);
+
+ // Save the resulting image to disk (as JPEG)
+
+ imagejpeg($image_n, $filename_result);
+
+
+ // Clean up
+
+ imagedestroy($image_n);
+ imagedestroy($image_x);
+ imagedestroy($image_y);
+
+}
+
+?>
+
+
+<br><br><br><br>
+<div id="container2">
+
+<?php
+$folder = 'images/';
+$filetype = '*.*';
+$files = glob($folder.$filetype);
+
+echo '<table>';
+//for ($i=0; $i<count($files); $i++) {
+    echo '<tr><td>';
+    echo '<img src="'.$files[0].'" /></a> ';
+   
+    echo '</td></tr>';
+//}
+echo '</table>';
+?>
+
+</div>
+
+<form action="/project/checkout" method="post"
+enctype="multipart/form-data">
+<input type="submit" name="Submit" value="Add to Cart" class="btn1" />
+</form>
+<div id="container3">
+Shirt Price: 300 Rs.
+</div>
+
+</br></br></br></br></br></br>
+<?php
+include_once($_SERVER['DOCUMENT_ROOT'].'/project/footer.inc');
+?>

@@ -1,0 +1,46 @@
+<?php
+print date('F jS, Y');
+include_once($_SERVER['DOCUMENT_ROOT'].'/project/header.inc');
+?>
+<title>Login</title>
+
+<link rel="stylesheet" type="text/css" href="/project/customer/account/login/styles.css"/>
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=ABeeZee:400,400italic">
+
+
+<?php 
+require('database.inc');
+
+
+
+
+
+	$email=$_POST['newemail'];
+	echo $email;
+	$query="select count(*) from Customer where Email_Address='".$_POST['newemail']."'";
+	$result=mysql_query($query);
+	$r=mysql_fetch_assoc($result);
+	if($r['count(*)']<1)
+	{
+		$sql="INSERT INTO Customer (First_Name,Last_Name,Email_Address,Password)
+VALUES
+('$_POST[fname]','$_POST[lname]','$_POST[newemail]','$_POST[password1]')";
+
+if (!mysql_query($sql,$db))
+  {
+  die('Error: ' . mysql_error());
+  }
+
+echo "record added";
+		
+	}
+	else
+	{
+		echo "already exist";
+	}
+///mysql_close($db);
+?>
+
+<?php
+include_once($_SERVER['DOCUMENT_ROOT'].'/project/footer.inc');
+?>
